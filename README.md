@@ -15,8 +15,13 @@ Para validar e gerar a versão de produção: `npm run build`.
 
 - Toda a interface está em `src/App.tsx`, com dez transações e três metas escritas diretamente no JSX.
 - Estilos em `src/App.css`, com variáveis CSS em `:root` e media queries para 768px e 1024px.
-- Visão geral e relatório na mesma página, acessíveis pelos links do cabeçalho.
-- Valores, gráficos e barras de progresso são demonstrativos e estáticos. Filtros, formulários, modais e alternância de tema ficam para a evolução do projeto com estado.
+- Visão geral e relatório em telas separadas, acessíveis pelos links do cabeçalho e pelo parâmetro `pagina` na URL, dentro da mesma aplicação.
+- Alternância entre tema claro e escuro com `useState` e variáveis CSS. A seleção volta ao tema claro ao carregar uma tela.
+- Valores, gráficos e barras de progresso são demonstrativos e estáticos. Filtros, formulários e modais ficam para a evolução do projeto. Os botões de categorias e renda estão desabilitados nesta prévia.
+- Busca, filtros, edição de renda e gerenciamento de gastos fixos aparecem como controles visuais desabilitados, preservando o planejamento sem antecipar o uso de vetores e componentes da Fase 3.
+- O menu de ações em telas menores usa `details` e `summary` nativos. No desktop, Categorias e Definir renda aparecem diretamente no cabeçalho.
+- O relatório apresenta quatro indicadores, gastos por categoria, gráfico semanal e painéis de renda e maiores gastos. No tablet, os dois últimos painéis ficam lado a lado; no desktop, formam a coluna lateral.
+- A fonte Inter é carregada do Google Fonts, com Segoe UI e fontes do sistema como alternativas. Nenhum pacote adicional foi instalado.
 - Sem bibliotecas de componentes, backend, Tailwind ou carregamento externo de dados nesta fase.
 
 ## Layout e referências

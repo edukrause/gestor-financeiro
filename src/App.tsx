@@ -1,28 +1,54 @@
+import { useState } from 'react'
 import './App.css'
 
 export default function App() {
+  const [darkMode, setDarkMode] = useState(false)
+  const reportPage = new URLSearchParams(window.location.search).get('pagina') === 'relatorio'
+
   return (
-    <>
+    <div className="app" data-theme={darkMode ? 'dark' : 'light'}>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
       <header className="site-header">
         <div className="header-inner">
-          <a className="brand" href="#visao-geral">
-            <span className="brand-icon" aria-hidden="true">↗</span>Gestor Financeiro</a>
+          <a className="brand" href="?pagina=visao-geral">
+            <span className="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9h19v20H3Z"/><path d="m5 24 7-7 5 4L29 5m-9 0h9v9"/><path d="M6 5h14"/></svg></span>Gestor Financeiro</a>
           <nav aria-label="Navegação principal">
-            <a href="#visao-geral">Visão geral</a>
-            <a href="#relatorio">Relatório</a>
+            <a href="?pagina=visao-geral" aria-current={!reportPage ? 'page' : undefined}>Visão geral</a>
+            <a href="?pagina=relatorio" aria-current={reportPage ? 'page' : undefined}>Relatório</a>
           </nav>
-          <span className="header-note">Seu dinheiro, com clareza.</span>
+          <div className="header-actions">
+            <button className="header-button desktop-action" type="button" disabled title="Gerenciamento de categorias previsto para a Fase 3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M3 3h7l11 11-7 7L3 10Z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
+              Categorias
+            </button>
+            <button className="header-button header-button-primary desktop-action" type="button" disabled title="Edição da renda prevista para a Fase 3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 10v4m12-4v4"/></svg>
+              Definir renda
+            </button>
+            <button className="header-button theme-toggle" type="button" onClick={() => setDarkMode(!darkMode)} aria-label={darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'} aria-pressed={darkMode} title={darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'}>
+              {darkMode ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></svg>
+              )}
+            </button>
+            <details className="mobile-menu">
+              <summary className="header-button" aria-label="Abrir menu de ações"><span aria-hidden="true">☰</span></summary>
+              <div className="mobile-menu-content">
+                <button type="button" disabled title="Disponível na Fase 3">Categorias</button>
+                <button type="button" disabled title="Disponível na Fase 3">Definir renda</button>
+              </div>
+            </details>
+          </div>
         </div>
       </header>
       <main id="conteudo" className="page">
-        <section id="visao-geral" aria-labelledby="overview-title">
+        {!reportPage && <section id="visao-geral" aria-labelledby="overview-title">
           <h1 id="overview-title" className="sr-only">Visão geral financeira de outubro de 2026</h1>
           <div className="summary">
             <article className="metric balance">
               <h2>Saldo atual · outubro</h2>
               <strong>R$ 3.245,90</strong>
-              <span>Disponível neste mês</span>
             </article>
             <article className="metric revenue">
               <div>
@@ -39,7 +65,7 @@ export default function App() {
               <strong>−R$ 2.554,10</strong>
             </article>
             <article className="metric budget">
-              <h2>Renda mensal</h2>
+              <div className="metric-heading"><h2>Renda mensal</h2><button className="text-button" type="button" disabled title="Edição disponível na Fase 3">Editar</button></div>
               <div>
                 <strong>R$ 5.800,00</strong>
                 <span>44% já gasto</span>
@@ -49,10 +75,23 @@ export default function App() {
           </div>
           <div className="dashboard">
             <section className="panel transactions" aria-labelledby="transactions-title">
-              <div className="section-heading">
-                <h2 id="transactions-title">Transações</h2>
-                <span>Outubro de 2026</span>
-                <span className="count">10 lançamentos</span>
+              <div className="transactions-toolbar">
+                <div className="section-heading">
+                  <h2 id="transactions-title">Transações</h2>
+                  <span>Outubro de 2026</span>
+                </div>
+                <div className="transaction-controls" aria-label="Prévia dos filtros de transações">
+                  <div className="filter-buttons" role="group" aria-label="Tipo de transação">
+                    <button className="filter-button selected" type="button" disabled title="Filtros disponíveis na Fase 3">Todas</button>
+                    <button className="filter-button" type="button" disabled title="Filtros disponíveis na Fase 3">Entradas</button>
+                    <button className="filter-button" type="button" disabled title="Filtros disponíveis na Fase 3">Saídas</button>
+                  </div>
+                  <label className="search-field">
+                    <span className="sr-only">Buscar transação (disponível na Fase 3)</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg>
+                    <input type="search" placeholder="Buscar transação" disabled title="Busca disponível na Fase 3"/>
+                  </label>
+                </div>
               </div>
               <div className="table-heading" aria-hidden="true">
                 <span>Descrição</span>
@@ -177,6 +216,7 @@ export default function App() {
                 </li>
               </ul>
               <section className="fixed-costs" aria-labelledby="fixed-title">
+                <div className="fixed-summary">
                 <div className="section-heading">
                   <h3 id="fixed-title">Gastos fixos</h3>
                   <span>
@@ -184,6 +224,9 @@ export default function App() {
                 </div>
                 <progress value="26" max="100" aria-label="Renda comprometida com gastos fixos">26%</progress>
                 <p>26% da sua renda já está comprometida com contas fixas.</p>
+                <button className="text-button manage-fixed" type="button" disabled title="Gerenciamento disponível na Fase 3">Gerenciar gastos fixos <span aria-hidden="true">→</span></button>
+                </div>
+                <div className="fixed-upcoming">
                 <h4>Próximos vencimentos</h4>
                 <p className="due">
                   <span>Academia · dia 20</span>
@@ -193,44 +236,54 @@ export default function App() {
                   <span>Celular · dia 25</span>
                   <strong>R$ 49,90</strong>
                 </p>
+                </div>
               </section>
             </aside>
           </div>
-        </section>
-        <section id="relatorio" aria-labelledby="report-title" className="report">
+        </section>}
+        {reportPage && <section id="relatorio" aria-labelledby="report-title" className="report">
           <div className="report-heading">
             <div>
-              <p className="eyebrow">Seu mês em números</p>
-              <h2 id="report-title">Relatório de outubro de 2026</h2>
+              <h1 id="report-title">Relatório de outubro de 2026</h1>
               <p>Dados de 01/10 a 13/10 · 10 lançamentos</p>
             </div>
-            <span className="month">Outubro 2026</span>
+            <div className="month-picker" aria-label="Mês do relatório">
+              <button className="header-button" type="button" disabled aria-label="Mês anterior" title="Seleção de mês disponível em uma próxima fase">‹</button>
+              <span>Outubro 2026</span>
+              <button className="header-button" type="button" disabled aria-label="Próximo mês" title="Seleção de mês disponível em uma próxima fase">›</button>
+            </div>
+          </div>
+          <div className="summary report-summary">
+            <article className="metric revenue"><h2>Receitas</h2><strong>+R$ 5.800,00</strong></article>
+            <article className="metric expenses"><h2>Despesas</h2><strong>−R$ 2.554,10</strong></article>
+            <article className="metric report-result"><div><h2>Resultado do mês</h2><span>sobrou 56% da renda</span></div><strong>+R$ 3.245,90</strong></article>
+            <article className="metric report-budget"><div><h2>Renda comprometida</h2><span>de R$ 5.800,00</span></div><strong>44%</strong><progress value="44" max="100" aria-label="44% da renda comprometida">44%</progress></article>
           </div>
           <div className="report-grid">
             <section className="panel category-report" aria-labelledby="category-title">
               <div className="section-heading">
-                <h3 id="category-title">Gastos por categoria</h3>
+                <h2 id="category-title">Gastos por categoria</h2>
                 <span>R$ 2.554,10</span>
               </div>
               <p className="category-item">Moradia <span>R$ 1.456,70 · 57,0%</span>
-                <progress value="57" max="100">57%</progress>
+                <progress value="57" max="100" aria-label="Moradia: 57% dos gastos">57%</progress>
               </p>
               <p className="category-item">Alimentação <span>R$ 487,30 · 19,1%</span>
-                <progress value="19.1" max="100">19,1%</progress>
+                <progress value="19.1" max="100" aria-label="Alimentação: 19,1% dos gastos">19,1%</progress>
               </p>
               <p className="category-item">Lazer <span>R$ 335,60 · 13,1%</span>
-                <progress value="13.1" max="100">13,1%</progress>
+                <progress value="13.1" max="100" aria-label="Lazer: 13,1% dos gastos">13,1%</progress>
               </p>
               <p className="category-item">Transporte <span>R$ 210,00 · 8,2%</span>
-                <progress value="8.2" max="100">8,2%</progress>
+                <progress value="8.2" max="100" aria-label="Transporte: 8,2% dos gastos">8,2%</progress>
               </p>
               <p className="category-item">Saúde <span>R$ 64,50 · 2,5%</span>
-                <progress value="2.5" max="100">2,5%</progress>
+                <progress value="2.5" max="100" aria-label="Saúde: 2,5% dos gastos">2,5%</progress>
               </p>
               <p className="report-note">Moradia concentra mais da metade dos gastos do mês.</p>
             </section>
             <section className="panel" aria-labelledby="weekly-title">
-              <h3 id="weekly-title">Entradas e saídas por semana</h3>
+              <h2 id="weekly-title">Entradas e saídas por semana</h2>
               <p className="legend">
                 <span>● Entradas</span>
                 <span>● Saídas</span>
@@ -238,21 +291,17 @@ export default function App() {
               <div className="chart" role="img" aria-label="Semana 1: entradas de 4.500 reais e saídas de 1.687,30. Semana 2: entradas de 1.300 reais e saídas de 866,80. Semanas 3 e 4 sem lançamentos.">
                 <div className="chart-column">
                   <div className="bars">
-                    <i style={{height:'90%'}}>
-                    </i>
-                    <i style={{height:'34%'}}>
-                    </i>
+                    <i className="bar-week-one-income"><span>4.500</span></i>
+                    <i className="bar-week-one-expense"><span>1.687</span></i>
                   </div>
-                  <span>Sem 1</span>
+                  <span>Sem 1<small>01–07/10</small></span>
                 </div>
                 <div className="chart-column">
                   <div className="bars">
-                    <i style={{height:'26%'}}>
-                    </i>
-                    <i style={{height:'17%'}}>
-                    </i>
+                    <i className="bar-week-two-income"><span>1.300</span></i>
+                    <i className="bar-week-two-expense"><span>867</span></i>
                   </div>
-                  <span>Sem 2</span>
+                  <span>Sem 2<small>08–14/10</small></span>
                 </div>
                 <div className="chart-column">
                   <div className="bars">
@@ -261,7 +310,7 @@ export default function App() {
                     <i>
                     </i>
                   </div>
-                  <span>Sem 3</span>
+                  <span>Sem 3<small>15–21/10</small></span>
                 </div>
                 <div className="chart-column">
                   <div className="bars">
@@ -270,20 +319,23 @@ export default function App() {
                     <i>
                     </i>
                   </div>
-                  <span>Sem 4</span>
+                  <span>Sem 4<small>22–31/10</small></span>
                 </div>
               </div>
             </section>
-            <section className="panel" aria-labelledby="ranking-title">
-              <h3>Renda x gastos</h3>
+            <div className="report-sidebar">
+            <section className="panel income-panel" aria-labelledby="income-title">
+              <div className="section-heading"><h2 id="income-title">Renda x gastos</h2><button className="text-button" type="button" disabled title="Edição disponível na Fase 3">Editar renda</button></div>
+              <progress value="44" max="100" aria-label="44% da renda gasta">44%</progress>
               <div className="income-split">
                 <span>Gasto<strong>R$ 2.554,10</strong>
                 </span>
                 <span>Ainda livre<strong>R$ 3.245,90</strong>
                 </span>
               </div>
-              <progress value="44" max="100" aria-label="44% da renda gasta">44%</progress>
-              <h3 id="ranking-title" className="ranking-title">Maiores gastos</h3>
+            </section>
+            <section className="panel ranking-panel" aria-labelledby="ranking-title">
+              <h2 id="ranking-title">Maiores gastos</h2>
               <ol className="ranking">
                 <li>
                   <span>Aluguel<small>Moradia</small>
@@ -312,13 +364,14 @@ export default function App() {
                 </li>
               </ol>
             </section>
+            </div>
           </div>
-        </section>
+        </section>}
       </main>
       <footer className="site-footer">
         <span>Gestor Financeiro — projeto acadêmico · Eduardo Krause</span>
         <a href="https://github.com/edukrause">github.com/edukrause</a>
       </footer>
-    </>
+    </div>
   )
 }
