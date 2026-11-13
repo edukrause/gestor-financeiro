@@ -1,6 +1,6 @@
 # Gestor Financeiro
 
-Página acadêmica de organização financeira pessoal, com visão geral das receitas e despesas, transações, metas e relatório mensal. Implementação da Fase 2 do TCD com React, TypeScript e CSS, baseada nos wireframes em `docs/`.
+Aplicação de organização financeira pessoal com transações, metas de economia e relatório mensal, desenvolvida com React, TypeScript e CSS.
 
 ## Executar
 
@@ -9,27 +9,30 @@ npm install
 npm run dev
 ```
 
-Para validar e gerar a versão de produção: `npm run build`.
+`npm run build` verifica o TypeScript e gera a versão de produção. `npm run preview` serve essa versão.
 
-## Organização da Fase 2
+## Fase 3: componentes, dados e estado
 
-- Toda a interface está em `src/App.tsx`, com dez transações e três metas escritas diretamente no JSX.
-- Estilos em `src/App.css`, com variáveis CSS em `:root` e media queries para 768px e 1024px.
-- Visão geral e relatório em telas separadas, acessíveis pelos links do cabeçalho e pelo parâmetro `pagina` na URL, dentro da mesma aplicação.
-- Alternância entre tema claro e escuro com `useState` e variáveis CSS. A seleção volta ao tema claro ao carregar uma tela.
-- Valores, gráficos e barras de progresso são demonstrativos e estáticos. Filtros, formulários e modais ficam para a evolução do projeto. Os botões de categorias e renda estão desabilitados nesta prévia.
-- Busca, filtros, edição de renda e gerenciamento de gastos fixos aparecem como controles visuais desabilitados, preservando o planejamento sem antecipar o uso de vetores e componentes da Fase 3.
-- O menu de ações em telas menores usa `details` e `summary` nativos. No desktop, Categorias e Definir renda aparecem diretamente no cabeçalho.
-- O relatório apresenta quatro indicadores, gastos por categoria, gráfico semanal e painéis de renda e maiores gastos. No tablet, os dois últimos painéis ficam lado a lado; no desktop, formam a coluna lateral.
-- A fonte Inter é carregada do Google Fonts, com Segoe UI e fontes do sistema como alternativas. Nenhum pacote adicional foi instalado.
-- Sem bibliotecas de componentes, backend, Tailwind ou carregamento externo de dados nesta fase.
+- `src/components/`: cabeçalho, resumo financeiro, listagens, itens, relatório, gastos fixos e rodapé.
+- `src/data/types.ts`: tipos `Transaction`, `Goal` e `TransactionFilter`; props que recebem dados também são tipadas.
+- `src/data/transactions.ts`: vetor local com dez transações, cada uma com ID, tipo, descrição, categoria, data e valor.
+- `src/data/goals.ts`: vetor local com três metas. As duas listagens usam `map` e `key` pelo ID.
+- `App.tsx` guarda os estados da busca, do filtro e do tema, e compõe os componentes passando dados e funções por props.
+- Busca controlada por descrição ou categoria, combinada com filtros de entradas/saídas, contagem de resultados e mensagem para busca vazia.
+- Resumo e relatório são demonstrativos do mês completo e não mudam com a busca.
+- CSS em `src/App.css`, com variáveis e media queries em 768px e 1024px. O modo escuro e o relatório separado da última versão da Fase 2 foram preservados na integração com a `main`.
+- Nenhuma dependência adicional. Dados locais; backend não é necessário para executar a entrega.
 
-## Layout e referências
+## Entrega e vídeo
 
-Os três wireframes estão em `docs/`, em PDF. No celular, as seções ficam empilhadas. A partir de 768px, o resumo e as metas usam duas colunas. A partir de 1024px, o resumo usa quatro colunas e as metas ficam ao lado das transações.
+- PR da Fase 3: https://github.com/edukrause/gestor-financeiro/pull/3
+- Vídeo: https://drive.google.com/file/d/192J5GtrviY1ZBW3zDf1W8Zpu5qM1Fthb/view?usp=drivesdk
+- Roteiro: `docs/roteiro-fase-3.md`.
 
-A listagem principal tem dez transações, cada uma com descrição, categoria, data e valor. A secundária tem três metas, com nome, prazo, valores e progresso.
+A versão original do PR foi preservada no histórico em `90d38d0`; o commit de integração posterior resolve os conflitos com a Fase 2, preservando o layout, o relatório separado e o modo escuro.
 
-O projeto segue os conceitos de JSX semântico, classes CSS e variáveis apresentados no DAW-2026, com tema e layout próprios.
+Os demais desafios estão no PR separado https://github.com/edukrause/gestor-financeiro/pull/4 e na aplicação https://edukrause.github.io/gestor-financeiro/. A leitura de JSON, o skeleton, as rotas de detalhe e os favoritos pertencem à evolução adicional; esta branch mantém as duas listagens em vetores locais.
 
-Protótipo no Figma: https://www.figma.com/design/UknwSmhfMRSCsfGy6sUwk6/Sem-t%C3%ADtulo?node-id=0-1
+O envio dos links no ambiente da disciplina continua sendo feito pelo aluno. O merge deve ocorrer após a apresentação, conforme o regulamento.
+
+Protótipo: https://www.figma.com/design/UknwSmhfMRSCsfGy6sUwk6/Sem-t%C3%ADtulo?node-id=0-1
