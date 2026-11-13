@@ -1,11 +1,8 @@
-
 export default function Summary() {
-  return (
-<div className="summary">
+  return (<div className="summary">
             <article className="metric balance">
               <h2>Saldo atual · outubro</h2>
               <strong>R$ 3.245,90</strong>
-              <span>Disponível neste mês</span>
             </article>
             <article className="metric revenue">
               <div>
@@ -22,13 +19,12 @@ export default function Summary() {
               <strong>−R$ 2.554,10</strong>
             </article>
             <article className="metric budget">
-              <h2>Renda mensal</h2>
+              <div className="metric-heading"><h2>Renda mensal</h2><button className="text-button" type="button" disabled title="Edição disponível na Fase 3">Editar</button></div>
               <div>
                 <strong>R$ 5.800,00</strong>
                 <span>44% já gasto</span>
               </div>
               <progress value="44" max="100" aria-label="Renda mensal gasta">44%</progress>
             </article>
-          </div>
-  )
+          </div>)
 }

@@ -2,6 +2,7 @@
 export default function FixedCosts() {
   return (
 <section className="fixed-costs" aria-labelledby="fixed-title">
+                <div className="fixed-summary">
                 <div className="section-heading">
                   <h3 id="fixed-title">Gastos fixos</h3>
                   <span>
@@ -9,6 +10,8 @@ export default function FixedCosts() {
                 </div>
                 <progress value="26" max="100" aria-label="Renda comprometida com gastos fixos">26%</progress>
                 <p>26% da sua renda já está comprometida com contas fixas.</p>
+                </div>
+                <div className="fixed-upcoming">
                 <h4>Próximos vencimentos</h4>
                 <p className="due">
                   <span>Academia · dia 20</span>
@@ -18,6 +21,7 @@ export default function FixedCosts() {
                   <span>Celular · dia 25</span>
                   <strong>R$ 49,90</strong>
                 </p>
+                </div>
               </section>
   )
 }

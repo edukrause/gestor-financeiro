@@ -1,6 +1,6 @@
 # Gestor Financeiro
 
-Página de organização financeira pessoal com transações, metas e relatório mensal. Fase 3 do TCD: React, TypeScript e CSS, preservando os wireframes em `docs/` e o layout da Fase 2.
+Aplicação de organização financeira pessoal com transações, metas de economia e relatório mensal, desenvolvida com React, TypeScript e CSS.
 
 ## Executar
 
@@ -9,31 +9,30 @@ npm install
 npm run dev
 ```
 
-Validação e produção: `npm run build`. Prévia da produção: `npm run preview`.
+`npm run build` verifica o TypeScript e gera a versão de produção. `npm run preview` serve essa versão.
 
-## Componentes, dados e estado
+## Fase 3: componentes, dados e estado
 
-- `src/components/`: Header, Summary, TransactionList, TransactionItem, GoalList, GoalCard, FixedCosts, Report e Footer.
-- `src/data/types.ts`: tipos `Transaction`, `Goal` e `TransactionFilter`.
-- `src/data/transactions.ts`: dez transações com ID, descrição, categoria, data, valor e tipo.
-- `src/data/goals.ts`: três metas com ID, nome, prazo, valor guardado e objetivo.
-- As duas listagens usam `map`, `key` pelo ID e props tipadas.
-- `App.tsx` guarda a busca e o filtro em `useState` e passa os valores e funções para os componentes.
-- A busca controlada filtra descrição ou categoria em tempo real; pode ser combinada com Todas, Entradas ou Saídas. Há contador de resultados e mensagem para busca vazia.
-- Resumo e relatório continuam demonstrativos do mês completo, independentemente dos filtros da lista.
-- CSS em `src/App.css`, variáveis em `:root`, mobile first e media queries para 768px e 1024px.
-- Desafio bonificado: busca em tempo real. Nenhuma dependência adicionada.
+- `src/components/`: cabeçalho, resumo financeiro, listagens, itens, relatório, gastos fixos e rodapé.
+- `src/data/types.ts`: tipos `Transaction`, `Goal` e `TransactionFilter`; props que recebem dados também são tipadas.
+- `src/data/transactions.ts`: vetor local com dez transações, cada uma com ID, tipo, descrição, categoria, data e valor.
+- `src/data/goals.ts`: vetor local com três metas. As duas listagens usam `map` e `key` pelo ID.
+- `App.tsx` guarda os estados da busca, do filtro e do tema, e compõe os componentes passando dados e funções por props.
+- Busca controlada por descrição ou categoria, combinada com filtros de entradas/saídas, contagem de resultados e mensagem para busca vazia.
+- Resumo e relatório são demonstrativos do mês completo e não mudam com a busca.
+- CSS em `src/App.css`, com variáveis e media queries em 768px e 1024px. O modo escuro e o relatório separado da última versão da Fase 2 foram preservados na integração com a `main`.
+- Nenhuma dependência adicional. Dados locais; backend não é necessário para executar a entrega.
 
-A Fase 3 usa somente vetores locais. A API Spring é um projeto adicional separado e não é necessária para executar esta entrega.
+## Entrega e vídeo
 
-## Entrega
+- PR da Fase 3: https://github.com/edukrause/gestor-financeiro/pull/3
+- Vídeo: https://drive.google.com/file/d/192J5GtrviY1ZBW3zDf1W8Zpu5qM1Fthb/view?usp=drivesdk
+- Roteiro: `docs/roteiro-fase-3.md`.
 
-Branch: `fase-3-componentes`. Modelo da descrição: `docs/PR-fase-3.md`. Roteiro de vídeo: `docs/roteiro-fase-3.md`.
+A versão original do PR foi preservada no histórico em `90d38d0`; o commit de integração posterior resolve os conflitos com a Fase 2, preservando o layout, o relatório separado e o modo escuro.
 
-O vídeo precisa ser gravado pelo aluno, publicado com acesso liberado e incluído na descrição do PR e no ambiente da disciplina. Não há vídeo gravado automaticamente.
+Os demais desafios estão no PR separado https://github.com/edukrause/gestor-financeiro/pull/4 e na aplicação https://edukrause.github.io/gestor-financeiro/. A leitura de JSON, o skeleton, as rotas de detalhe e os favoritos pertencem à evolução adicional; esta branch mantém as duas listagens em vetores locais.
 
-A referência local de `main` ainda contém a Fase 1; a Fase 3 foi preparada sobre a Fase 2 existente para preservar o trabalho anterior. Antes da entrega, confirme no GitHub o merge da Fase 2 e a base do PR da Fase 3. Não houve atualização remota nesta sessão porque o terminal não conseguiu resolver o domínio do GitHub.
-
-As instruções gerais dizem 18h, enquanto a atividade específica da Fase 3 informa 13/11/2026 às 23h. Para evitar essa divergência, entregue até 18h.
+O envio dos links no ambiente da disciplina continua sendo feito pelo aluno. O merge deve ocorrer após a apresentação, conforme o regulamento.
 
 Protótipo: https://www.figma.com/design/UknwSmhfMRSCsfGy6sUwk6/Sem-t%C3%ADtulo?node-id=0-1

@@ -13,23 +13,24 @@ import './App.css'
 export default function App() {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState<TransactionFilter>('all')
+  const [darkMode, setDarkMode] = useState(false)
+  const reportPage = new URLSearchParams(window.location.search).get('pagina') === 'relatorio'
 
   return (
-    <>
+    <div className="app" data-theme={darkMode ? 'dark' : 'light'}>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
-      <Header />
+      <Header darkMode={darkMode} reportPage={reportPage} onToggleTheme={() => setDarkMode(current => !current)} />
       <main id="conteudo" className="page">
-        <section id="visao-geral" aria-labelledby="overview-title">
+        {reportPage ? <Report /> : <section id="visao-geral" aria-labelledby="overview-title">
           <h1 id="overview-title" className="sr-only">Visão geral financeira de outubro de 2026</h1>
           <Summary />
           <div className="dashboard">
             <TransactionList transactions={transactions} search={search} filter={filter} onSearchChange={setSearch} onFilterChange={setFilter} />
             <GoalList goals={goals} />
           </div>
-        </section>
-        <Report />
+        </section>}
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
