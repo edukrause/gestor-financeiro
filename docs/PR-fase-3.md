@@ -40,4 +40,3 @@
 - O PR #2 da Fase 2 já foi mesclado na main.
 - O commit original desta entrega (`90d38d0`) permanece no histórico. Um commit posterior integra a main e resolve os conflitos com a versão mais recente da Fase 2.
 - Merge após a apresentação, conforme o fluxo da disciplina.
-
