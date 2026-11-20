@@ -1304,3 +1304,11 @@ button:disabled,input:disabled {
     .transaction-controls { flex-direction:row; align-items:end; justify-content:space-between; }
     .transaction-controls label { flex:1; max-width:360px; }
 }
+
+.load-error {
+    align-self:start;
+}
+
+.load-error p {
+    margin:var(--space-3) 0 var(--space-4);
+}
