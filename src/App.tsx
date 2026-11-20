@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Summary from './components/Summary'
 import TransactionList from './components/TransactionList'
+import LoadingSkeleton from './components/LoadingSkeleton'
 import GoalList from './components/GoalList'
 import Report from './components/Report'
 import Footer from './components/Footer'
@@ -54,7 +55,7 @@ export default function App() {
           <Summary />
           <div className="dashboard">
             {loading ? (
-              <section className="panel" role="status">Carregando transações…</section>
+              <LoadingSkeleton />
             ) : loadError ? (
               <section className="panel load-error">
                 <h2>Transações indisponíveis</h2>
