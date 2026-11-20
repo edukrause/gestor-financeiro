@@ -1,0 +1,84 @@
+import type { Transaction } from './types'
+
+export const transactions: Transaction[] = [
+  {
+    "id": 1,
+    "kind": "expense",
+    "description": "Restaurante",
+    "category": "Lazer › Restaurantes",
+    "date": "2026-10-13",
+    "amount": 295.7
+  },
+  {
+    "id": 2,
+    "kind": "expense",
+    "description": "Streaming",
+    "category": "Lazer › Streaming",
+    "date": "2026-10-12",
+    "amount": 39.9
+  },
+  {
+    "id": 3,
+    "kind": "expense",
+    "description": "Farmácia",
+    "category": "Saúde › Farmácia",
+    "date": "2026-10-12",
+    "amount": 64.5
+  },
+  {
+    "id": 4,
+    "kind": "expense",
+    "description": "Combustível",
+    "category": "Transporte › Combustível",
+    "date": "2026-10-11",
+    "amount": 210.0
+  },
+  {
+    "id": 5,
+    "kind": "expense",
+    "description": "Internet",
+    "category": "Moradia › Internet",
+    "date": "2026-10-10",
+    "amount": 99.9
+  },
+  {
+    "id": 6,
+    "kind": "expense",
+    "description": "Conta de luz",
+    "category": "Moradia › Energia",
+    "date": "2026-10-09",
+    "amount": 156.8
+  },
+  {
+    "id": 7,
+    "kind": "income",
+    "description": "Freelance site",
+    "category": "Renda › Freelance",
+    "date": "2026-10-08",
+    "amount": 1300.0
+  },
+  {
+    "id": 8,
+    "kind": "expense",
+    "description": "Mercado",
+    "category": "Alimentação › Mercado",
+    "date": "2026-10-07",
+    "amount": 487.3
+  },
+  {
+    "id": 9,
+    "kind": "expense",
+    "description": "Aluguel",
+    "category": "Moradia › Aluguel",
+    "date": "2026-10-06",
+    "amount": 1200.0
+  },
+  {
+    "id": 10,
+    "kind": "income",
+    "description": "Salário",
+    "category": "Renda › Salário",
+    "date": "2026-10-05",
+    "amount": 4500.0
+  }
+]
