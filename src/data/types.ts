@@ -5,6 +5,7 @@ export type Transaction = {
   category: string
   date: string
   amount: number
+  fixed?: boolean
 }
 
 export type Goal = {

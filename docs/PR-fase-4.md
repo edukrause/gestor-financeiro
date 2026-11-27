@@ -10,6 +10,7 @@
 - O efeito em `App.tsx` carrega os dados com `fetch` nativo e atualiza o estado tipado `Transaction[]`.
 - O carregamento exibe um esqueleto. Em caso de falha, a interface explica o que ocorreu e permite tentar novamente.
 - A listagem secundária mantém três metas em um vetor local. A busca e os filtros continuam disponíveis para a listagem principal.
+- Os totalizadores da Visão geral acompanham os filtros. O Relatório calcula os indicadores a partir dos lançamentos do mês mais recente do JSON, novembro de 2026 na demonstração.
 - O README documenta a execução, a fonte dos dados e o endereço da aplicação publicada.
 
 ### Decisões técnicas

@@ -887,11 +887,6 @@ button:disabled,input:disabled {
     font-weight:600;
 }
 
-.bars .bar-week-one-income { height:90%; }
-.bars .bar-week-one-expense { height:33.746%; }
-.bars .bar-week-two-income { height:26%; }
-.bars .bar-week-two-expense { height:17.336%; }
-
 .chart-column small {
     display:block;
     margin-top:var(--space-1);

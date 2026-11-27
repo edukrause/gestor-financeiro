@@ -18,7 +18,8 @@ Abra o endereço exibido pelo Vite. Para validar o TypeScript e gerar a versão 
 - **Transações.** A listagem principal tem dez itens de demonstração em `public/transacoes.json`, com ID, descrição, categoria, data, valor e tipo. O `useEffect` do `App.tsx` chama `loadTransactions`, que usa o `fetch` nativo para ler o arquivo. O estado recebe `Transaction[]`.
 - **Carregamento e erro.** A lista mostra um esqueleto animado durante a requisição. Se o arquivo estiver indisponível ou inválido, aparece uma mensagem com o botão **Tentar novamente**.
 - **Metas.** As três metas continuam em um vetor local tipado em `src/data/goals.ts` e aparecem mesmo quando a consulta de transações falha.
-- **Interface.** Os estilos usam variáveis CSS e media queries mobile first em 768px e 1024px. Os wireframes originais estão em `docs/`. Os controles de edição de renda e de categorias são ilustrativos. O resumo e o relatório exibem os números fixos do mês demonstrado.
+- **Totais.** Busca, tipo e favoritos atualizam a lista e os totalizadores da Visão geral. O Relatório, incluindo categorias, semanas e maiores gastos, usa todos os lançamentos do mês mais recente do JSON. Os dados de demonstração são de novembro de 2026.
+- **Interface.** Os estilos usam variáveis CSS e media queries mobile first em 768px e 1024px. Os wireframes originais estão em `docs/`. Os controles de edição de renda e de categorias são ilustrativos.
 
 ## Desafios implementados
 

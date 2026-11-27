@@ -9,6 +9,7 @@ import GoalList from './components/GoalList'
 import Report from './components/Report'
 import Footer from './components/Footer'
 import { loadTransactions } from './data/loadTransactions'
+import { filterTransactions, getMonth, summarizeTransactions } from './data/finance'
 import { readFavorites, readTheme } from './data/storage'
 import { goals } from './data/goals'
 import type { Transaction, TransactionFilter } from './data/types'
@@ -67,6 +68,13 @@ export default function App() {
     setAttempt(current => current + 1)
   }
 
+  const month = getMonth(transactions)
+  const monthlyTransactions = transactions.filter(transaction => transaction.date.startsWith(month.key))
+  const visibleTransactions = filterTransactions(monthlyTransactions, search, filter, favoritesOnly ? favorites : null)
+  const isFiltered = Boolean(search.trim()) || filter !== 'all' || favoritesOnly
+  const monthlyTotals = summarizeTransactions(monthlyTransactions)
+  const visibleTotals = isFiltered ? summarizeTransactions(visibleTransactions) : monthlyTotals
+
   let transactionStatus = null
   if (loading) {
     transactionStatus = <LoadingSkeleton />
@@ -96,12 +104,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={(
             <section id="visao-geral" aria-labelledby="overview-title">
-              <h1 id="overview-title" className="sr-only">Visão geral financeira de outubro de 2026</h1>
-              <Summary />
+              <h1 id="overview-title" className="sr-only">Visão geral financeira de {month.label}</h1>
+              <Summary monthName={month.name} totals={transactionStatus ? null : visibleTotals} isFiltered={isFiltered} />
               <div className="dashboard">
                 {transactionStatus ?? (
                   <TransactionList
-                    transactions={transactions}
+                    transactions={visibleTransactions}
+                    totalCount={monthlyTransactions.length}
+                    monthLabel={month.label}
                     search={search}
                     filter={filter}
                     onSearchChange={setSearch}
@@ -112,11 +122,17 @@ export default function App() {
                     onToggleFavorite={toggleFavorite}
                   />
                 )}
-                <GoalList goals={goals} />
+                <GoalList
+                  goals={goals}
+                  transactions={monthlyTransactions}
+                  monthlyIncome={transactionStatus ? null : monthlyTotals.income}
+                />
               </div>
             </section>
           )} />
-          <Route path="/relatorio" element={<Report />} />
+          <Route path="/relatorio" element={transactionStatus ?? (
+            <Report month={month} transactions={monthlyTransactions} totals={monthlyTotals} />
+          )} />
           <Route path="/transacao/:id" element={
             transactionStatus ?? (
               <TransactionDetail transactions={transactions} favorites={favorites} onToggleFavorite={toggleFavorite} />

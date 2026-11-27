@@ -1,8 +1,11 @@
 import type { Transaction, TransactionFilter } from '../data/types'
+import { transactionCount } from '../data/format'
 import TransactionItem from './TransactionItem'
 
 type Props = {
   transactions: Transaction[]
+  totalCount: number
+  monthLabel: string
   search: string
   filter: TransactionFilter
   onSearchChange: (value: string) => void
@@ -13,12 +16,10 @@ type Props = {
   onToggleFavorite: (id: number) => void
 }
 
-function normalizeSearch(value: string) {
-  return value.trim().toLocaleLowerCase('pt-BR').normalize('NFD').replace(/\p{M}/gu, '')
-}
-
 export default function TransactionList({
   transactions,
+  totalCount,
+  monthLabel,
   search,
   filter,
   onSearchChange,
@@ -28,19 +29,12 @@ export default function TransactionList({
   onFavoritesOnlyChange,
   onToggleFavorite,
 }: Props) {
-  const query = normalizeSearch(search)
-  const visible = transactions.filter(transaction =>
-    (filter === 'all' || transaction.kind === filter) &&
-    (!favoritesOnly || favorites.includes(transaction.id)) &&
-    (normalizeSearch(transaction.description).includes(query) || normalizeSearch(transaction.category).includes(query))
-  )
-
   return (
     <section className="panel transactions" aria-labelledby="transactions-title">
       <div className="transactions-toolbar">
         <div className="section-heading">
           <h2 id="transactions-title">Transações</h2>
-          <span>Outubro de 2026</span>
+          <span>{monthLabel}</span>
         </div>
         <div className="transaction-controls">
           <div className="filter-buttons" role="group" aria-label="Filtrar por tipo">
@@ -59,13 +53,13 @@ export default function TransactionList({
           <input type="checkbox" checked={favoritesOnly} onChange={event => onFavoritesOnlyChange(event.target.checked)} />
           Só favoritos
         </label>
-        <span role="status">{visible.length} de {transactions.length} lançamentos</span>
+        <span role="status">{transactions.length} de {transactionCount(totalCount)}</span>
       </div>
       <div className="table-heading" aria-hidden="true">
         <span>Descrição</span><span>Categoria</span><span>Data</span><span>Valor</span>
       </div>
       <ul className="transaction-list">
-        {visible.map(transaction => (
+        {transactions.map(transaction => (
           <TransactionItem
             key={transaction.id}
             transaction={transaction}
@@ -74,8 +68,8 @@ export default function TransactionList({
           />
         ))}
       </ul>
-      {visible.length === 0 && <p className="empty-state">Nenhuma transação encontrada. Tente outra busca ou filtro.</p>}
-      <p className="filter-note">Os filtros alteram esta lista; o resumo e o relatório mostram o mês completo.</p>
+      {transactions.length === 0 && <p className="empty-state">Nenhuma transação encontrada. Tente outra busca ou filtro.</p>}
+      <p className="filter-note">Os filtros atualizam a lista e o resumo. O relatório reúne todos os lançamentos do mês.</p>
     </section>
   )
 }
