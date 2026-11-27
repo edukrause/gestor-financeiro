@@ -1,6 +1,8 @@
 # Gestor Financeiro
 
-Aplicação de organização financeira pessoal com transações, metas de economia e relatório mensal, desenvolvida com React, TypeScript e CSS.
+Aplicação de organização financeira pessoal em React, TypeScript e CSS. A visão geral apresenta transações e metas de economia. O relatório reúne os indicadores do mês de demonstração.
+
+[Aplicação no GitHub Pages](https://edukrause.github.io/gestor-financeiro/)
 
 ## Executar
 
@@ -9,30 +11,27 @@ npm install
 npm run dev
 ```
 
-`npm run build` verifica o TypeScript e gera a versão de produção. `npm run preview` serve essa versão.
+Abra o endereço exibido pelo Vite. Para validar o TypeScript e gerar a versão de produção, use `npm run build`. Para abrir o build localmente, use `npm run preview`.
 
-## Fase 3: componentes, dados e estado
+## Dados da Fase 4
 
-- `src/components/`: cabeçalho, resumo financeiro, listagens, itens, relatório, gastos fixos e rodapé.
-- `src/data/types.ts`: tipos `Transaction`, `Goal` e `TransactionFilter`; props que recebem dados também são tipadas.
-- `src/data/transactions.ts`: vetor local com dez transações, cada uma com ID, tipo, descrição, categoria, data e valor.
-- `src/data/goals.ts`: vetor local com três metas. As duas listagens usam `map` e `key` pelo ID.
-- `App.tsx` guarda os estados da busca, do filtro e do tema, e compõe os componentes passando dados e funções por props.
-- Busca controlada por descrição ou categoria, combinada com filtros de entradas/saídas, contagem de resultados e mensagem para busca vazia.
-- Resumo e relatório são demonstrativos do mês completo e não mudam com a busca.
-- CSS em `src/App.css`, com variáveis e media queries em 768px e 1024px. O modo escuro e o relatório separado da última versão da Fase 2 foram preservados na integração com a `main`.
-- Nenhuma dependência adicional. Dados locais; backend não é necessário para executar a entrega.
+- **Transações.** A listagem principal tem dez itens de demonstração em `public/transacoes.json`, com ID, descrição, categoria, data, valor e tipo. O `useEffect` do `App.tsx` chama `loadTransactions`, que usa o `fetch` nativo para ler o arquivo. O estado recebe `Transaction[]`.
+- **Carregamento e erro.** A lista mostra um esqueleto animado durante a requisição. Se o arquivo estiver indisponível ou inválido, aparece uma mensagem com o botão **Tentar novamente**.
+- **Metas.** As três metas continuam em um vetor local tipado em `src/data/goals.ts` e aparecem mesmo quando a consulta de transações falha.
+- **Totais.** Busca, tipo e favoritos atualizam a lista e os totalizadores da Visão geral. O Relatório, incluindo categorias, semanas e maiores gastos, usa todos os lançamentos do mês mais recente do JSON. Os dados de demonstração são de novembro de 2026.
+- **Interface.** Os estilos usam variáveis CSS e media queries mobile first em 768px e 1024px. Os wireframes originais estão em `docs/`. Os controles de edição de renda e de categorias são ilustrativos.
 
-## Entrega e vídeo
+## Desafios implementados
 
-- PR da Fase 3: https://github.com/edukrause/gestor-financeiro/pull/3
-- Vídeo: https://drive.google.com/file/d/192J5GtrviY1ZBW3zDf1W8Zpu5qM1Fthb/view?usp=drivesdk
-- Roteiro: `docs/roteiro-fase-3.md`.
+| Desafio | Como conferir |
+| --- | --- |
+| Persistência local | Favorite uma transação, recarregue e ative **Só favoritos**. Favoritos e preferência de tema são sincronizados com `localStorage` por `useEffect`. |
+| Página de detalhe | Clique no nome de uma transação. Na rota `#/transacao/:id`, confira valor, tipo, categoria e data. Abra o mesmo endereço depois de recarregar. |
+| Busca | Digite `farmacia` para encontrar **Farmácia**. A busca controlada filtra por descrição ou categoria e combina com os filtros de tipo e favoritos. |
+| Esqueleto de carregamento | Use uma rede lenta no DevTools e recarregue. As linhas animadas aparecem enquanto o JSON está em trânsito. A opção de movimento reduzido do sistema desativa a animação. |
+| Publicação | Abra o link do GitHub Pages e acesse uma rota de detalhe diretamente. |
+| Modo escuro | Alterne o tema no cabeçalho. As cores mudam por variáveis CSS e a escolha permanece após recarregar. |
 
-A versão original do PR foi preservada no histórico em `90d38d0`; o commit de integração posterior resolve os conflitos com a Fase 2, preservando o layout, o relatório separado e o modo escuro.
+`react-router-dom` foi adicionado para a rota de detalhe. O `HashRouter` permite abrir e recarregar essa rota no GitHub Pages, que hospeda arquivos estáticos. O Vite usa a base `/gestor-financeiro/` para os recursos e para o JSON.
 
-Os demais desafios estão no PR separado https://github.com/edukrause/gestor-financeiro/pull/4 e na aplicação https://edukrause.github.io/gestor-financeiro/. A leitura de JSON, o skeleton, as rotas de detalhe e os favoritos pertencem à evolução adicional; esta branch mantém as duas listagens em vetores locais.
-
-O envio dos links no ambiente da disciplina continua sendo feito pelo aluno. O merge deve ocorrer após a apresentação, conforme o regulamento.
-
-Protótipo: https://www.figma.com/design/UknwSmhfMRSCsfGy6sUwk6/Sem-t%C3%ADtulo?node-id=0-1
+[Roteiro do vídeo da Fase 4](docs/roteiro-fase-4.md) · [Protótipo no Figma](https://www.figma.com/design/UknwSmhfMRSCsfGy6sUwk6/Sem-t%C3%ADtulo?node-id=0-1)
